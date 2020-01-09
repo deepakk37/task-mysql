@@ -1,0 +1,11 @@
+version: '2'
+services:
+  example-service:
+    build: .
+    volumes:
+    - .:/usr/src/app
+    - /usr/src/app/node_modules
+    ports:
+    - 3000:3000
+    network_mode: "host"
+    command: npm start

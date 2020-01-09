@@ -1,0 +1,45 @@
+
+<%- include ../layouts/header.ejs %>
+ 
+<% if (messages.error) { %>
+    <p style="color:red"><%- messages.error %></p>
+<% } %>
+ 
+<% if (messages.success) { %>
+    <p style="color:green"><%- messages.success %></p>
+<% } %>    
+ 
+<table class = "table">
+    <thead>
+    <tr>
+        <th scope="col">S.No</th>
+        <th scope="col">Task Name</th>
+        <th scope="col">Due Date</th>
+        <th scope="col">Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    
+
+    <% if (data) { %>
+    <% data.forEach(function(task){ %>
+        <tr>
+            <th scope="row"><%= task.id %></th>
+            <td><%= task.task_name %></td>
+            <td><%= task.due_date %></td>
+            <td>
+                <div style="float:left">
+                    <a href='/tasks/edit/<%= task.id %>'><i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i></a> &nbsp;
+                    <form method="post" action="/tasks/delete/<%= task.id %>" style="float:right">
+
+                        <input type="submit" name="delete" value='Delete' onClick="return confirm('Are you sure you want to delete?')" />
+                        <input type="hidden" name="_method" value="DELETE" />
+                    </form>
+                </div>
+            </td>
+        </tr>
+    <% }) %>
+    <% } %>
+    </tbody>
+ 
+</table>
